@@ -18,6 +18,8 @@
         <AssociationConnector Association="KsiegarniaModel.id_ksiazka_fk" ManuallyRouted="false" />
         <AssociationConnector Association="KsiegarniaModel.FK__Ksiazki__id_dzia__25869641" ManuallyRouted="false" />
         <AssociationConnector Association="KsiegarniaModel.FK__AuthorsTo__id_ks__38996AB5" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="KsiegarniaModel.Aktywacja" Width="1.5" PointX="5.25" PointY="7.75" />
+        <AssociationConnector Association="KsiegarniaModel.FK__Aktywacja__id__5CD6CB2B" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

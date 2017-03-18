@@ -17,6 +17,13 @@
           <Property Name="wojewodztwo" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="kod_pocztowy" Type="varchar" MaxLength="6" Nullable="false" />
         </EntityType>
+        <EntityType Name="Aktywacja">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="kod" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
         <EntityType Name="Autorzy">
           <Key>
             <PropertyRef Name="id_autora" />
@@ -66,6 +73,7 @@
           <Property Name="id_adres" Type="int" Nullable="false" />
           <Property Name="haslo" Type="varchar" MaxLength="255" />
           <Property Name="nr_telefonu" Type="varchar" MaxLength="255" />
+          <Property Name="aktywny" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Zamowienia">
           <Key>
@@ -76,6 +84,18 @@
           <Property Name="data_zlozenia_zam" Type="datetime" />
           <Property Name="cena_calkowita" Type="int" Nullable="false" />
         </EntityType>
+        <Association Name="FK__Aktywacja__id__5CD6CB2B">
+          <End Role="Uzytkownicy" Type="Self.Uzytkownicy" Multiplicity="1" />
+          <End Role="Aktywacja" Type="Self.Aktywacja" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Uzytkownicy">
+              <PropertyRef Name="id_user" />
+            </Principal>
+            <Dependent Role="Aktywacja">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__AuthorsTo__id_au__398D8EEE">
           <End Role="Autorzy" Type="Self.Autorzy" Multiplicity="0..1" />
           <End Role="AutorzyToKsiazki" Type="Self.AutorzyToKsiazki" Multiplicity="*" />
@@ -150,12 +170,17 @@
         </Association>
         <EntityContainer Name="KsiegarniaModelStoreContainer">
           <EntitySet Name="Adresy" EntityType="Self.Adresy" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Aktywacja" EntityType="Self.Aktywacja" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Autorzy" EntityType="Self.Autorzy" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AutorzyToKsiazki" EntityType="Self.AutorzyToKsiazki" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Dzialy" EntityType="Self.Dzialy" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Ksiazki" EntityType="Self.Ksiazki" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Uzytkownicy" EntityType="Self.Uzytkownicy" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Zamowienia" EntityType="Self.Zamowienia" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Aktywacja__id__5CD6CB2B" Association="Self.FK__Aktywacja__id__5CD6CB2B">
+            <End Role="Uzytkownicy" EntitySet="Uzytkownicy" />
+            <End Role="Aktywacja" EntitySet="Aktywacja" />
+          </AssociationSet>
           <AssociationSet Name="FK__AuthorsTo__id_au__398D8EEE" Association="Self.FK__AuthorsTo__id_au__398D8EEE">
             <End Role="Autorzy" EntitySet="Autorzy" />
             <End Role="AutorzyToKsiazki" EntitySet="AutorzyToKsiazki" />
@@ -247,6 +272,8 @@
           <Property Name="haslo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="nr_telefonu" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Adresy" Relationship="Self.FK__Users__id_adres__1273C1CD" FromRole="Uzytkownicy" ToRole="Adresy" />
+          <Property Name="aktywny" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Aktywacja" Relationship="KsiegarniaModel.FK__Aktywacja__id__5CD6CB2B" FromRole="Uzytkownicy" ToRole="Aktywacja" />
         </EntityType>
         <EntityType Name="Zamowienia">
           <Key>
@@ -259,7 +286,6 @@
         </EntityType>
         <EntityType Name="AutorzyToKsiazki">
           <Key>
-            <PropertyRef Name="udzial" />
             <PropertyRef Name="id_aut" />
           </Key>
           <Property Name="id_ksiazka" Type="Int32" />
@@ -373,7 +399,32 @@
             <End Role="Ksiazki" EntitySet="Ksiazki" />
             <End Role="AutorzyToKsiazki" EntitySet="AutorzyToKsiazki" />
           </AssociationSet>
+          <EntitySet Name="Aktywacja" EntityType="KsiegarniaModel.Aktywacja" />
+          <AssociationSet Name="FK__Aktywacja__id__5CD6CB2B" Association="KsiegarniaModel.FK__Aktywacja__id__5CD6CB2B">
+            <End Role="Uzytkownicy" EntitySet="Uzytkownicy" />
+            <End Role="Aktywacja" EntitySet="Aktywacja" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Aktywacja">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="kod" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="Uzytkownicy" Relationship="KsiegarniaModel.FK__Aktywacja__id__5CD6CB2B" FromRole="Aktywacja" ToRole="Uzytkownicy" />
+        </EntityType>
+        <Association Name="FK__Aktywacja__id__5CD6CB2B">
+          <End Type="KsiegarniaModel.Uzytkownicy" Role="Uzytkownicy" Multiplicity="1" />
+          <End Type="KsiegarniaModel.Aktywacja" Role="Aktywacja" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Uzytkownicy">
+              <PropertyRef Name="id_user" />
+            </Principal>
+            <Dependent Role="Aktywacja">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -427,6 +478,7 @@
           <EntitySetMapping Name="Uzytkownicy">
             <EntityTypeMapping TypeName="KsiegarniaModel.Uzytkownicy">
               <MappingFragment StoreEntitySet="Uzytkownicy">
+                <ScalarProperty Name="aktywny" ColumnName="aktywny" />
                 <ScalarProperty Name="id_user" ColumnName="id_user" />
                 <ScalarProperty Name="imie" ColumnName="imie" />
                 <ScalarProperty Name="nazwisko" ColumnName="nazwisko" />
@@ -455,6 +507,14 @@
                 <ScalarProperty Name="id_ksiazka" ColumnName="id_ksiazka" />
                 <ScalarProperty Name="id_autora" ColumnName="id_autora" />
                 <ScalarProperty Name="udzial" ColumnName="udzial" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Aktywacja">
+            <EntityTypeMapping TypeName="KsiegarniaModel.Aktywacja">
+              <MappingFragment StoreEntitySet="Aktywacja">
+                <ScalarProperty Name="kod" ColumnName="kod" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -32,5 +32,6 @@ namespace Ksiegarnia.Models
         public virtual DbSet<Uzytkownicy> Uzytkownicy { get; set; }
         public virtual DbSet<Zamowienia> Zamowienia { get; set; }
         public virtual DbSet<AutorzyToKsiazki> AutorzyToKsiazki { get; set; }
+        public virtual DbSet<Aktywacja> Aktywacja { get; set; }
     }
 }
