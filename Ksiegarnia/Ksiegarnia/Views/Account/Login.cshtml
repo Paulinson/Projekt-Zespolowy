@@ -6,7 +6,6 @@
 
 <h2>Login</h2>
 
-
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
@@ -17,44 +16,12 @@
         @Html.ValidationSummary(true)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.imie, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.imie)
-                @Html.ValidationMessageFor(model => model.imie)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.nazwisko, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.nazwisko)
-                @Html.ValidationMessageFor(model => model.nazwisko)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.wiek, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.wiek)
-                @Html.ValidationMessageFor(model => model.wiek)
-            </div>
-        </div>
-
-        <div class="form-group">
             @Html.LabelFor(model => model.email, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.email)
                 @Html.ValidationMessageFor(model => model.email)
             </div>
         </div>
-
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.id_adres, "id_adres", new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("id_adres", String.Empty)
-                @Html.ValidationMessageFor(model => model.id_adres)
-            </div>
-        </div>*@
 
         <div class="form-group">
             @Html.LabelFor(model => model.haslo, new { @class = "control-label col-md-2" })
@@ -64,21 +31,7 @@
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.nr_telefonu, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.nr_telefonu)
-                @Html.ValidationMessageFor(model => model.nr_telefonu)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.aktywny, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.aktywny)
-                @Html.ValidationMessageFor(model => model.aktywny)
-            </div>
-        </div>
+      
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -91,7 +44,3 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

@@ -52,14 +52,14 @@ namespace Ksiegarnia.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
-        public ActionResult Register(Uzytkownicy usr, Adresy adr)
+        public ActionResult Register(Uzytkownicy usr)
         {
             if(ModelState.IsValid)
             {
-                db.Adresy.Add(adr);
                 db.Uzytkownicy.Add(usr);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                SendActivationEmail(usr);
+                return RedirectToAction("Welcome");
             }
             return View();
         }
@@ -77,34 +77,55 @@ namespace Ksiegarnia.Controllers
         {
             if(ModelState.IsValid)
             {
-                var details = db.Uzytkownicy.Where(a => a.email.Equals(usr.email) && a.haslo.Equals(usr.haslo) && a.aktywny.Equals(1)).FirstOrDefault();
+                var details = db.Uzytkownicy.Where(a => a.email.Equals(usr.email) && a.haslo.Equals(usr.haslo)).FirstOrDefault();
                 if (details != null)
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Welcome");
             }
             return View();
         }
-        #region funkcje
 
-        private void SendActivationEmail(int userId, string mail, string imie)
+        [AllowAnonymous]
+        public ActionResult Activation()
         {
-            string activationCode = Guid.NewGuid().ToString();
-            var aktyw = new Aktywacja { id = userId, kod = Guid.Parse(activationCode) };
-            db.Aktywacja.Add(aktyw);
-            db.SaveChanges();
-
-            using (MailMessage mm = new MailMessage("marcin.mackowiak@windowslive.com", mail))
+            if(RouteData.Values["id"] != null)
             {
-                mm.Subject = "Aktywacja konta w elektronicznej księgarni";
-                string body = "Witaj " + imie + "!";
-                body += "<br /><br />Aby aktywować konto w serwisie kliknij poniższy link";
-                body += "<br /><a href = '" + Request.Url.AbsoluteUri.Replace("CS.aspx", "CS_Activation.aspx?ActivationCode=" + activationCode) + "'>Click here to activate your account.</a>";
-                body += "<br /><br />Dziękujemy.";
+                Guid activationCode = new Guid(RouteData.Values["id"].ToString());
+                KsiegarniaEntities ke = new KsiegarniaEntities();
+                Aktywacja aktywacja = ke.Aktywacja.Where(p => p.kod == activationCode).FirstOrDefault();
+                if (aktywacja != null)
+                {
+                    ke.Aktywacja.Remove(aktywacja);
+                    ke.SaveChanges();
+                    RedirectToAction("Index");
+                }
+            }
+            return View();
+        }
+
+        private void SendActivationEmail(Uzytkownicy usr)
+        {
+            Guid activationCode = Guid.NewGuid();
+            KsiegarniaEntities ke = new KsiegarniaEntities();
+            ke.Aktywacja.Add(new Aktywacja
+            {
+                id = usr.id_user,
+                kod = activationCode
+            });
+            ke.SaveChanges();
+
+            using (MailMessage mm = new MailMessage("marcin.mackowiak@windowlive.com", usr.email))
+            {
+                mm.Subject = "Aktywacja konta w serwisie Elektroniczna Księgarnia";
+                string body = "Witaj " + usr.imie + ",";
+                body += "<br /><br />Aby aktywować konto w Elektronicznej Księgarni kliknij poniższy link. ";
+                body += "<br /><a href = '" + string.Format("{0}://{1}/Account/Activation/{2}", Request.Url.Scheme, Request.Url.Authority, activationCode) + "'>Kliknij aby aktywować.</a>";
+                body += "<br /><br />Dziękujemy :)";
                 mm.Body = body;
                 mm.IsBodyHtml = true;
                 SmtpClient smtp = new SmtpClient();
                 smtp.Host = "smtp.live.com";
                 smtp.EnableSsl = true;
-                NetworkCredential NetworkCred = new NetworkCredential("marcin.mackowiak@windowslive.com", "<password>");
+                NetworkCredential NetworkCred = new NetworkCredential("marcin.mackowiak@windowslive.com", "Mackowiak$M9404");
                 smtp.UseDefaultCredentials = true;
                 smtp.Credentials = NetworkCred;
                 smtp.Port = 587;
@@ -112,10 +133,16 @@ namespace Ksiegarnia.Controllers
             }
         }
 
-        protected void pageLoad(object sender, EventArgs e)
+        [AllowAnonymous]
+        public ActionResult Welcome()
         {
-            
+            return View();
         }
+
+
+
+        #region funkcje
+
         #endregion
 
 

@@ -6,7 +6,6 @@
 
 <h2>Register</h2>
 
-
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
@@ -48,13 +47,19 @@
             </div>
         </div>
 
-        
-
         <div class="form-group">
             @Html.LabelFor(model => model.haslo, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.haslo)
                 @Html.ValidationMessageFor(model => model.haslo)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.haslo_potw, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.haslo_potw)
+                @Html.ValidationMessageFor(model => model.haslo_potw)
             </div>
         </div>
 
@@ -67,12 +72,54 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.aktywny, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ulica, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.aktywny)
-                @Html.ValidationMessageFor(model => model.aktywny)
+                @Html.EditorFor(model => model.ulica)
+                @Html.ValidationMessageFor(model => model.ulica)
             </div>
         </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.miasto, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.miasto)
+                @Html.ValidationMessageFor(model => model.miasto)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.nr_domu, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.nr_domu)
+                @Html.ValidationMessageFor(model => model.nr_domu)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.nr_mieszkania, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.nr_mieszkania)
+                @Html.ValidationMessageFor(model => model.nr_mieszkania)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.wojewodztwo, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.wojewodztwo)
+                @Html.ValidationMessageFor(model => model.wojewodztwo)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.kod_pocztowy, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.kod_pocztowy)
+                @Html.ValidationMessageFor(model => model.kod_pocztowy)
+            </div>
+        </div>
+
+      
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -85,7 +132,3 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

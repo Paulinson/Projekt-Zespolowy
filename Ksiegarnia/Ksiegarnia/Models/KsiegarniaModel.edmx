@@ -5,18 +5,6 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="KsiegarniaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Adresy">
-          <Key>
-            <PropertyRef Name="id_adres" />
-          </Key>
-          <Property Name="id_adres" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ulica" Type="varchar" MaxLength="255" Nullable="false" />
-          <Property Name="miasto" Type="varchar" MaxLength="255" Nullable="false" />
-          <Property Name="nr_domu" Type="int" Nullable="false" />
-          <Property Name="nr_mieszkania" Type="int" Nullable="false" />
-          <Property Name="wojewodztwo" Type="varchar" MaxLength="255" Nullable="false" />
-          <Property Name="kod_pocztowy" Type="varchar" MaxLength="6" Nullable="false" />
-        </EntityType>
         <EntityType Name="Aktywacja">
           <Key>
             <PropertyRef Name="id" />
@@ -70,10 +58,16 @@
           <Property Name="nazwisko" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="wiek" Type="int" Nullable="false" />
           <Property Name="email" Type="varchar" MaxLength="255" Nullable="false" />
-          <Property Name="id_adres" Type="int" Nullable="false" />
           <Property Name="haslo" Type="varchar" MaxLength="255" />
           <Property Name="nr_telefonu" Type="varchar" MaxLength="255" />
           <Property Name="aktywny" Type="int" Nullable="false" />
+          <Property Name="ulica" Type="varchar" MaxLength="255" />
+          <Property Name="miasto" Type="varchar" MaxLength="255" />
+          <Property Name="nr_domu" Type="int" />
+          <Property Name="nr_mieszkania" Type="int" />
+          <Property Name="wojewodztwo" Type="varchar" MaxLength="255" />
+          <Property Name="kod_pocztowy" Type="varchar" MaxLength="6" />
+          <Property Name="haslo_potw" Type="varchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="Zamowienia">
           <Key>
@@ -144,18 +138,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Users__id_adres__1273C1CD">
-          <End Role="Adresy" Type="Self.Adresy" Multiplicity="1" />
-          <End Role="Uzytkownicy" Type="Self.Uzytkownicy" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Adresy">
-              <PropertyRef Name="id_adres" />
-            </Principal>
-            <Dependent Role="Uzytkownicy">
-              <PropertyRef Name="id_adres" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="id_ksiazka_fk">
           <End Role="Ksiazki" Type="Self.Ksiazki" Multiplicity="1" />
           <End Role="Autorzy" Type="Self.Autorzy" Multiplicity="*" />
@@ -169,7 +151,6 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="KsiegarniaModelStoreContainer">
-          <EntitySet Name="Adresy" EntityType="Self.Adresy" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Aktywacja" EntityType="Self.Aktywacja" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Autorzy" EntityType="Self.Autorzy" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AutorzyToKsiazki" EntityType="Self.AutorzyToKsiazki" Schema="dbo" store:Type="Tables" />
@@ -197,10 +178,6 @@
             <End Role="Dzialy" EntitySet="Dzialy" />
             <End Role="Ksiazki" EntitySet="Ksiazki" />
           </AssociationSet>
-          <AssociationSet Name="FK__Users__id_adres__1273C1CD" Association="Self.FK__Users__id_adres__1273C1CD">
-            <End Role="Adresy" EntitySet="Adresy" />
-            <End Role="Uzytkownicy" EntitySet="Uzytkownicy" />
-          </AssociationSet>
           <AssociationSet Name="id_ksiazka_fk" Association="Self.id_ksiazka_fk">
             <End Role="Ksiazki" EntitySet="Ksiazki" />
             <End Role="Autorzy" EntitySet="Autorzy" />
@@ -210,19 +187,6 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="KsiegarniaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Adresy">
-          <Key>
-            <PropertyRef Name="id_adres" />
-          </Key>
-          <Property Name="id_adres" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ulica" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="miasto" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="nr_domu" Type="Int32" Nullable="false" />
-          <Property Name="nr_mieszkania" Type="Int32" Nullable="false" />
-          <Property Name="wojewodztwo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="kod_pocztowy" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Uzytkownicy" Relationship="Self.FK__Users__id_adres__1273C1CD" FromRole="Adresy" ToRole="Uzytkownicy" />
-        </EntityType>
         <EntityType Name="Autorzy">
           <Key>
             <PropertyRef Name="id_autora" />
@@ -268,12 +232,17 @@
           <Property Name="nazwisko" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="wiek" Type="Int32" Nullable="false" />
           <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="id_adres" Type="Int32" Nullable="false" />
           <Property Name="haslo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="nr_telefonu" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Adresy" Relationship="Self.FK__Users__id_adres__1273C1CD" FromRole="Uzytkownicy" ToRole="Adresy" />
           <Property Name="aktywny" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Aktywacja" Relationship="KsiegarniaModel.FK__Aktywacja__id__5CD6CB2B" FromRole="Uzytkownicy" ToRole="Aktywacja" />
+          <Property Name="ulica" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="miasto" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="nr_domu" Type="Int32" />
+          <Property Name="nr_mieszkania" Type="Int32" />
+          <Property Name="wojewodztwo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="kod_pocztowy" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="haslo_potw" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Zamowienia">
           <Key>
@@ -295,18 +264,6 @@
           <NavigationProperty Name="Ksiazki" Relationship="Self.FK__AuthorsTo__id_ks__38996AB5" FromRole="AutorzyToKsiazki" ToRole="Ksiazki" />
           <Property Name="id_aut" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
-        <Association Name="FK__Users__id_adres__1273C1CD">
-          <End Role="Adresy" Type="Self.Adresy" Multiplicity="1" />
-          <End Role="Uzytkownicy" Type="Self.Uzytkownicy" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Adresy">
-              <PropertyRef Name="id_adres" />
-            </Principal>
-            <Dependent Role="Uzytkownicy">
-              <PropertyRef Name="id_adres" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__AuthorsTo__id_au__398D8EEE">
           <End Role="Autorzy" Type="Self.Autorzy" Multiplicity="0..1" />
           <End Role="AutorzyToKsiazki" Type="Self.AutorzyToKsiazki" Multiplicity="*" />
@@ -368,17 +325,12 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="KsiegarniaEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Adresy" EntityType="Self.Adresy" />
           <EntitySet Name="Autorzy" EntityType="Self.Autorzy" />
           <EntitySet Name="Dzialy" EntityType="Self.Dzialy" />
           <EntitySet Name="Ksiazki" EntityType="Self.Ksiazki" />
           <EntitySet Name="Uzytkownicy" EntityType="Self.Uzytkownicy" />
           <EntitySet Name="Zamowienia" EntityType="Self.Zamowienia" />
           <EntitySet Name="AutorzyToKsiazki" EntityType="Self.AutorzyToKsiazki" />
-          <AssociationSet Name="FK__Users__id_adres__1273C1CD" Association="Self.FK__Users__id_adres__1273C1CD">
-            <End Role="Adresy" EntitySet="Adresy" />
-            <End Role="Uzytkownicy" EntitySet="Uzytkownicy" />
-          </AssociationSet>
           <AssociationSet Name="FK__AuthorsTo__id_au__398D8EEE" Association="Self.FK__AuthorsTo__id_au__398D8EEE">
             <End Role="Autorzy" EntitySet="Autorzy" />
             <End Role="AutorzyToKsiazki" EntitySet="AutorzyToKsiazki" />
@@ -431,19 +383,6 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="KsiegarniaModelStoreContainer" CdmEntityContainer="KsiegarniaEntities">
-          <EntitySetMapping Name="Adresy">
-            <EntityTypeMapping TypeName="KsiegarniaModel.Adresy">
-              <MappingFragment StoreEntitySet="Adresy">
-                <ScalarProperty Name="id_adres" ColumnName="id_adres" />
-                <ScalarProperty Name="ulica" ColumnName="ulica" />
-                <ScalarProperty Name="miasto" ColumnName="miasto" />
-                <ScalarProperty Name="nr_domu" ColumnName="nr_domu" />
-                <ScalarProperty Name="nr_mieszkania" ColumnName="nr_mieszkania" />
-                <ScalarProperty Name="wojewodztwo" ColumnName="wojewodztwo" />
-                <ScalarProperty Name="kod_pocztowy" ColumnName="kod_pocztowy" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Autorzy">
             <EntityTypeMapping TypeName="KsiegarniaModel.Autorzy">
               <MappingFragment StoreEntitySet="Autorzy">
@@ -478,13 +417,19 @@
           <EntitySetMapping Name="Uzytkownicy">
             <EntityTypeMapping TypeName="KsiegarniaModel.Uzytkownicy">
               <MappingFragment StoreEntitySet="Uzytkownicy">
+                <ScalarProperty Name="haslo_potw" ColumnName="haslo_potw" />
+                <ScalarProperty Name="kod_pocztowy" ColumnName="kod_pocztowy" />
+                <ScalarProperty Name="wojewodztwo" ColumnName="wojewodztwo" />
+                <ScalarProperty Name="nr_mieszkania" ColumnName="nr_mieszkania" />
+                <ScalarProperty Name="nr_domu" ColumnName="nr_domu" />
+                <ScalarProperty Name="miasto" ColumnName="miasto" />
+                <ScalarProperty Name="ulica" ColumnName="ulica" />
                 <ScalarProperty Name="aktywny" ColumnName="aktywny" />
                 <ScalarProperty Name="id_user" ColumnName="id_user" />
                 <ScalarProperty Name="imie" ColumnName="imie" />
                 <ScalarProperty Name="nazwisko" ColumnName="nazwisko" />
                 <ScalarProperty Name="wiek" ColumnName="wiek" />
                 <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="id_adres" ColumnName="id_adres" />
                 <ScalarProperty Name="haslo" ColumnName="haslo" />
                 <ScalarProperty Name="nr_telefonu" ColumnName="nr_telefonu" />
               </MappingFragment>

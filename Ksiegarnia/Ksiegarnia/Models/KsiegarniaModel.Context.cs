@@ -25,7 +25,6 @@ namespace Ksiegarnia.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Adresy> Adresy { get; set; }
         public virtual DbSet<Autorzy> Autorzy { get; set; }
         public virtual DbSet<Dzialy> Dzialy { get; set; }
         public virtual DbSet<Ksiazki> Ksiazki { get; set; }
