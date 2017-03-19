@@ -75,15 +75,43 @@ namespace Ksiegarnia.Controllers
         [AllowAnonymous]
         public ActionResult Login(Uzytkownicy usr)
         {
-            if(ModelState.IsValid)
+            #region modelstate remove
+            ModelState.Remove("imie");
+            ModelState.Remove("nazwisko");
+            ModelState.Remove("wiek");
+            ModelState.Remove("nr_telefonu");
+            ModelState.Remove("aktywny");
+            ModelState.Remove("ulica");
+            ModelState.Remove("miasto");
+            ModelState.Remove("nr_domu");
+            ModelState.Remove("nr_mieszkania");
+            ModelState.Remove("wojewodztwo");
+            ModelState.Remove("kod_pocztowy");
+            ModelState.Remove("haslo_potw");
+            #endregion
+
+            if (ModelState.IsValid)
             {
                 var details = db.Uzytkownicy.Where(a => a.email.Equals(usr.email) && a.haslo.Equals(usr.haslo)).FirstOrDefault();
                 if (details != null)
-                    return RedirectToAction("Welcome");
+                {
+                    Session["id_user"] = details.id_user;
+                    Session["imie"] = details.imie;
+                    return RedirectToAction("Start");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Niepoprawne dane!");
+                }
             }
             return View();
         }
 
+        [AllowAnonymous]
+        public ActionResult Start()
+        {
+            return View();
+        }
         [AllowAnonymous]
         public ActionResult Activation()
         {
