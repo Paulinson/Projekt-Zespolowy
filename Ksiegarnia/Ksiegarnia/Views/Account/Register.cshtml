@@ -40,6 +40,10 @@
         </div>
 
         <div class="form-group">
+            @if (ViewBag.message != null)
+            {
+                <p>Ten email jest już zajęty. Spróbuj inny. </p>
+            }
             @Html.LabelFor(model => model.email, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.email)

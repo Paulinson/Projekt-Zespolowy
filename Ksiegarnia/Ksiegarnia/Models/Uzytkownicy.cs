@@ -31,7 +31,7 @@ namespace Ksiegarnia.Models
 
         [Display(Name = "Wiek")]
         [Required(ErrorMessage = "Pole jest wymagane")]
-        [Range(16,100,ErrorMessage="Musisz mieć skończone 16 lat")]
+        [Range(16,100,ErrorMessage="Musisz mieć ukończone 16 lat")]
         public int wiek { get; set; }
 
         [Display(Name = "Email")]
@@ -47,6 +47,7 @@ namespace Ksiegarnia.Models
         [Display(Name = "Potwierdź hasło")]
         [Required(ErrorMessage = "Pole jest wymagane")]
         [Compare("haslo", ErrorMessage="Podane hasło nie pasuje z poprzednim")]
+        [DataType(DataType.Password)]
         public string haslo_potw { get; set; }
 
         [Display(Name = "Numer telefonu")]

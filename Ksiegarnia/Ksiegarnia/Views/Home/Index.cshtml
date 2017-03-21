@@ -16,25 +16,21 @@
         <h1 class="logo">
             <a href="index.html">Elektroniczna <br> Księgarnia</a>
         </h1>
-        <h3 class="tagline">@DateTime.Now.DayOfWeek @DateTime.Now.Day</h3>
-        <nav class="nav primary-nav">
+        <h3 class="tagline">@Session["imie"] @Session["nazwisko"] @DateTime.Now.DayOfWeek @DateTime.Now.Month @DateTime.Now.Year</h3>
+      <!--  <nav class="nav primary-nav">
             <ul>
                 <li><a href="">Dramat</a></li>
-                <!--
-                -->
+               
                 <li><a href="">Komedia</a></li>
-                <!--
-                -->
+                
                 <li><a href="schedule.html">Biografia</a></li>
-                <!--
-                -->
+                
                 <li><a href="venue.html">Romans</a></li>
-                <!--
-                -->
+               
                 <li><a href="register.html">Horror</a></li>
-                <li>@Session["imie"]</li>
             </ul>
-        </nav>
+        </nav> 
+          -->
     </header>
     <!-- Hero -->
     <section class="hero container">

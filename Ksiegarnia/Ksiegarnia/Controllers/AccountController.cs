@@ -56,10 +56,18 @@ namespace Ksiegarnia.Controllers
         {
             if(ModelState.IsValid)
             {
-                db.Uzytkownicy.Add(usr);
-                db.SaveChanges();
-                SendActivationEmail(usr);
-                return RedirectToAction("Welcome");
+                var details = db.Uzytkownicy.Where(p => p.email == usr.email).FirstOrDefault();
+                if (details == null)
+                {
+                    db.Uzytkownicy.Add(usr);
+                    db.SaveChanges();
+                    SendActivationEmail(usr);
+                    return RedirectToAction("Welcome");
+                }
+                else
+                {
+                    ViewBag.message = "Error";
+                }
             }
             return View();
         }
@@ -92,7 +100,7 @@ namespace Ksiegarnia.Controllers
 
             if (ModelState.IsValid)
             {
-                var details = db.Uzytkownicy.Where(a => a.email.Equals(usr.email) && a.haslo.Equals(usr.haslo)).FirstOrDefault();
+                var details = db.Uzytkownicy.Where(a => a.email.Equals(usr.email) && a.haslo.Equals(usr.haslo) && a.aktywny == 1).FirstOrDefault();
                 if (details != null)
                 {
                     Session["id_user"] = details.id_user;
@@ -120,8 +128,11 @@ namespace Ksiegarnia.Controllers
                 Guid activationCode = new Guid(RouteData.Values["id"].ToString());
                 KsiegarniaEntities ke = new KsiegarniaEntities();
                 Aktywacja aktywacja = ke.Aktywacja.Where(p => p.kod == activationCode).FirstOrDefault();
-                if (aktywacja != null)
+                Uzytkownicy usr = ke.Uzytkownicy.Where(p => p.id_user == aktywacja.id).FirstOrDefault();
+
+                if (aktywacja != null && usr != null)
                 {
+                    usr.aktywny = 1;
                     ke.Aktywacja.Remove(aktywacja);
                     ke.SaveChanges();
                     RedirectToAction("Index");
@@ -141,7 +152,7 @@ namespace Ksiegarnia.Controllers
             });
             ke.SaveChanges();
 
-            using (MailMessage mm = new MailMessage("ksiegarnia_PM@o2.pl", usr.email))
+            using (MailMessage mm = new MailMessage("pikolo941@wp.pl", usr.email))
             {
                 mm.Subject = "Aktywacja konta w serwisie Elektroniczna Księgarnia";
                 string body = "Witaj " + usr.imie + ",";
@@ -151,9 +162,9 @@ namespace Ksiegarnia.Controllers
                 mm.Body = body;
                 mm.IsBodyHtml = true;
                 SmtpClient smtp = new SmtpClient();
-                smtp.Host = "poczta.o2.pl";
+                smtp.Host = "smtp.wp.pl";
                 smtp.EnableSsl = true;
-                NetworkCredential NetworkCred = new NetworkCredential("ksiegarnia_PM@o2.pl", "ksiegarnia123");
+                NetworkCredential NetworkCred = new NetworkCredential("pikolo941@wp.pl", "pikolak94");
                 smtp.UseDefaultCredentials = true;
                 smtp.Credentials = NetworkCred;
                 smtp.Port = 587;
