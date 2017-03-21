@@ -141,7 +141,7 @@ namespace Ksiegarnia.Controllers
             });
             ke.SaveChanges();
 
-            using (MailMessage mm = new MailMessage("marcin.mackowiak@windowlive.com", usr.email))
+            using (MailMessage mm = new MailMessage("ksiegarnia_PM@o2.pl", usr.email))
             {
                 mm.Subject = "Aktywacja konta w serwisie Elektroniczna Księgarnia";
                 string body = "Witaj " + usr.imie + ",";
@@ -151,9 +151,9 @@ namespace Ksiegarnia.Controllers
                 mm.Body = body;
                 mm.IsBodyHtml = true;
                 SmtpClient smtp = new SmtpClient();
-                smtp.Host = "smtp.live.com";
+                smtp.Host = "poczta.o2.pl";
                 smtp.EnableSsl = true;
-                NetworkCredential NetworkCred = new NetworkCredential("marcin.mackowiak@windowslive.com", "Mackowiak$M9404");
+                NetworkCredential NetworkCred = new NetworkCredential("ksiegarnia_PM@o2.pl", "ksiegarnia123");
                 smtp.UseDefaultCredentials = true;
                 smtp.Credentials = NetworkCred;
                 smtp.Port = 587;
