@@ -114,6 +114,12 @@ namespace Ksiegarnia.Controllers
             }
             return View();
         }
+        [AllowAnonymous]
+        public ActionResult LogOut()
+        {
+            Session.Clear();
+            return RedirectToAction("Index", "Home");
+        }
 
         [AllowAnonymous]
         public ActionResult Start()
