@@ -12,19 +12,20 @@ namespace Ksiegarnia.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Autorzy
+    public partial class Wysylki_platnosci
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Autorzy()
+        public Wysylki_platnosci()
         {
-            this.AutorzyKsiazki = new HashSet<AutorzyKsiazki>();
+            this.Zamowienia = new HashSet<Zamowienia>();
         }
     
-        public int id_autor { get; set; }
-        public string imie { get; set; }
-        public string nazwisko { get; set; }
+        public int id_wysylka { get; set; }
+        public string nazwa { get; set; }
+        public Nullable<double> cena { get; set; }
+        public string opis { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AutorzyKsiazki> AutorzyKsiazki { get; set; }
+        public virtual ICollection<Zamowienia> Zamowienia { get; set; }
     }
 }

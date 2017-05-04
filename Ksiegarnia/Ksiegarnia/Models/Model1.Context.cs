@@ -13,10 +13,10 @@ namespace Ksiegarnia.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class KsiegarniaEntities : DbContext
+    public partial class KsiegarniaEntities1 : DbContext
     {
-        public KsiegarniaEntities()
-            : base("name=KsiegarniaEntities")
+        public KsiegarniaEntities1()
+            : base("name=KsiegarniaEntities1")
         {
         }
     
@@ -26,11 +26,17 @@ namespace Ksiegarnia.Models
         }
     
         public virtual DbSet<Autorzy> Autorzy { get; set; }
-        public virtual DbSet<Dzialy> Dzialy { get; set; }
+        public virtual DbSet<AutorzyKsiazki> AutorzyKsiazki { get; set; }
+        public virtual DbSet<Egzemplarze> Egzemplarze { get; set; }
+        public virtual DbSet<Kategoria> Kategoria { get; set; }
+        public virtual DbSet<Klienci> Klienci { get; set; }
         public virtual DbSet<Ksiazki> Ksiazki { get; set; }
-        public virtual DbSet<Uzytkownicy> Uzytkownicy { get; set; }
+        public virtual DbSet<Statusy> Statusy { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<Wydawnictwa> Wydawnictwa { get; set; }
+        public virtual DbSet<Wysylki_platnosci> Wysylki_platnosci { get; set; }
         public virtual DbSet<Zamowienia> Zamowienia { get; set; }
-        public virtual DbSet<AutorzyToKsiazki> AutorzyToKsiazki { get; set; }
+        public virtual DbSet<Zamowienia_ksiazki> Zamowienia_ksiazki { get; set; }
         public virtual DbSet<Aktywacja> Aktywacja { get; set; }
     }
 }

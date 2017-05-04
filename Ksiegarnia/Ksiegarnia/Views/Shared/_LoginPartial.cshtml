@@ -2,17 +2,54 @@
 @if (Session["imie"] != null)
 {
     <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    Kategorie
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                    <li>@Html.ActionLink("Dramat", "getKsiazkiByKategoria", "Buy", new { id = 1 }, null)</li>
+                    <li>@Html.ActionLink("Komedia", "getKsiazkiByKategoria", "Buy", new { id = 2 }, null)</li>
+                    <li>@Html.ActionLink("Romans", "getKsiazkiByKategoria", "Buy", new { id = 3 }, null)</li>
+                    <li>@Html.ActionLink("Bajka", "getKsiazkiByKategoria", "Buy", new { id = 4 }, null)</li>
+                    <li>@Html.ActionLink("Nauka", "getKsiazkiByKategoria", "Buy", new { id = 5 }, null)</li>
+                    <li>@Html.ActionLink("Technika", "getKsiazkiByKategoria", "Buy", new { id = 6 }, null)</li>
+                    <li>@Html.ActionLink("Sci-fi", "getKsiazkiByKategoria", "Buy", new { id = 7 }, null)</li>
+                    <li>@Html.ActionLink("Horror", "getKsiazkiByKategoria", "Buy", new { id = 8 }, null)</li>
+                    <li>@Html.ActionLink("Thriller", "getKsiazkiByKategoria", "Buy", new { id = 9 }, null)</li>
+                    <li>@Html.ActionLink("Poezja", "getKsiazkiByKategoria", "Buy", new { id = 10 }, null)</li>
+                </ul>
+            </li>
         <li>
-           Witaj @Session["imie"]
+                 @Html.ActionLink("Koszyk(" + Session["koszyk"] + ")", "Koszyk", "Home")
         </li>
-        <li>@Html.ActionLink("Wyloguj się", "Logout", "Account")</li>
-    </ul>
+            <li>@Html.ActionLink("Wyloguj się", "Logout", "Account")</li>
+
+        </ul>
 }
     
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Login", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-    </ul>
+            <li>
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    Kategorie
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                    <li>@Html.ActionLink("Dramat", "getKsiazkiByKategoria", "Buy", new { id = 1 }, null)</li>
+                    <li>@Html.ActionLink("Komedia", "getKsiazkiByKategoria", "Buy", new { id = 2 }, null)</li>
+                    <li>@Html.ActionLink("Romans", "getKsiazkiByKategoria", "Buy", new { id = 3 }, null)</li>
+                    <li>@Html.ActionLink("Bajka", "getKsiazkiByKategoria", "Buy", new { id = 4 }, null)</li>
+                    <li>@Html.ActionLink("Nauka", "getKsiazkiByKategoria", "Buy", new { id = 5 }, null)</li>
+                    <li>@Html.ActionLink("Technika", "getKsiazkiByKategoria", "Buy", new { id = 6 }, null)</li>
+                    <li>@Html.ActionLink("Sci-fi", "getKsiazkiByKategoria", "Buy", new { id = 7 }, null)</li>
+                    <li>@Html.ActionLink("Horror", "getKsiazkiByKategoria", "Buy", new { id = 8 }, null)</li>
+                    <li>@Html.ActionLink("Thriller", "getKsiazkiByKategoria", "Buy", new { id = 9 }, null)</li>
+                    <li>@Html.ActionLink("Poezja", "getKsiazkiByKategoria", "Buy", new { id = 10 }, null)</li>
+                </ul>
+            </li>
+            <li>@Html.ActionLink("Zarejestruj", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+            <li>@Html.ActionLink("Zaloguj", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+        </ul>
 }

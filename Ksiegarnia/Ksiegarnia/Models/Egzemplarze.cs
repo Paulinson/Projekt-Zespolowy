@@ -12,9 +12,14 @@ namespace Ksiegarnia.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Aktywacja
+    public partial class Egzemplarze
     {
-        public int id { get; set; }
-        public Nullable<System.Guid> kod { get; set; }
+        public int id_egzemplarz { get; set; }
+        public Nullable<int> id_ksiazka { get; set; }
+        public string kod_ean { get; set; }
+        public string isbn { get; set; }
+        public Nullable<int> stan { get; set; }
+    
+        public virtual Ksiazki Ksiazki { get; set; }
     }
 }

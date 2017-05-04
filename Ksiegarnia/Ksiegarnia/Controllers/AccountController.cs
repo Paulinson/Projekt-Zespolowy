@@ -19,7 +19,7 @@ namespace Ksiegarnia.Controllers
     [Authorize]
     public class AccountController : Controller
     {
-        KsiegarniaEntities db = new KsiegarniaEntities();
+        KsiegarniaEntities1 db = new KsiegarniaEntities1();
 
         private ApplicationUserManager _userManager;
 
@@ -52,14 +52,14 @@ namespace Ksiegarnia.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
-        public ActionResult Register(Uzytkownicy usr)
+        public ActionResult Register(Klienci usr)
         {
             if(ModelState.IsValid)
             {
-                var details = db.Uzytkownicy.Where(p => p.email == usr.email).FirstOrDefault();
+                var details = db.Klienci.Where(p => p.email == usr.email).FirstOrDefault();
                 if (details == null)
                 {
-                    db.Uzytkownicy.Add(usr);
+                    db.Klienci.Add(usr);
                     db.SaveChanges();
                     SendActivationEmail(usr);
                     return RedirectToAction("Welcome");
@@ -81,7 +81,7 @@ namespace Ksiegarnia.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
-        public ActionResult Login(Uzytkownicy usr)
+        public ActionResult Login(Klienci usr)
         {
             #region modelstate remove
             ModelState.Remove("imie");
@@ -100,11 +100,12 @@ namespace Ksiegarnia.Controllers
 
             if (ModelState.IsValid)
             {
-                var details = db.Uzytkownicy.Where(a => a.email.Equals(usr.email) && a.haslo.Equals(usr.haslo) && a.aktywny == 1).FirstOrDefault();
+                var details = db.Klienci.Where(a => a.email.Equals(usr.email) && a.haslo.Equals(usr.haslo) && a.aktywny == 1).FirstOrDefault();
                 if (details != null)
                 {
-                    Session["id_user"] = details.id_user;
+                    Session["id_user"] = details.id_klient;
                     Session["imie"] = details.imie;
+                    Session["koszyk"] = 0;
                     return RedirectToAction("Start");
                 }
                 else
@@ -114,6 +115,7 @@ namespace Ksiegarnia.Controllers
             }
             return View();
         }
+
         [AllowAnonymous]
         public ActionResult LogOut()
         {
@@ -132,9 +134,9 @@ namespace Ksiegarnia.Controllers
             if(RouteData.Values["id"] != null)
             {
                 Guid activationCode = new Guid(RouteData.Values["id"].ToString());
-                KsiegarniaEntities ke = new KsiegarniaEntities();
+                KsiegarniaEntities1 ke = new KsiegarniaEntities1();
                 Aktywacja aktywacja = ke.Aktywacja.Where(p => p.kod == activationCode).FirstOrDefault();
-                Uzytkownicy usr = ke.Uzytkownicy.Where(p => p.id_user == aktywacja.id).FirstOrDefault();
+                Klienci usr = ke.Klienci.Where(p => p.id_klient == aktywacja.id).FirstOrDefault();
 
                 if (aktywacja != null && usr != null)
                 {
@@ -147,13 +149,13 @@ namespace Ksiegarnia.Controllers
             return View();
         }
 
-        private void SendActivationEmail(Uzytkownicy usr)
+        private void SendActivationEmail(Klienci usr)
         {
             Guid activationCode = Guid.NewGuid();
-            KsiegarniaEntities ke = new KsiegarniaEntities();
+            KsiegarniaEntities1 ke = new KsiegarniaEntities1();
             ke.Aktywacja.Add(new Aktywacja
             {
-                id = usr.id_user,
+                id = usr.id_klient,
                 kod = activationCode
             });
             ke.SaveChanges();

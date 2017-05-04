@@ -14,9 +14,25 @@ namespace Ksiegarnia.Models
     
     public partial class Zamowienia
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Zamowienia()
+        {
+            this.Zamowienia_ksiazki = new HashSet<Zamowienia_ksiazki>();
+        }
+    
         public int id_zamowienia { get; set; }
-        public int id_user { get; set; }
-        public Nullable<System.DateTime> data_zlozenia_zam { get; set; }
-        public int cena_calkowita { get; set; }
+        public Nullable<int> id_klient { get; set; }
+        public Nullable<int> id_wysylka { get; set; }
+        public Nullable<int> id_status { get; set; }
+        public Nullable<double> suma { get; set; }
+        public Nullable<System.DateTime> data { get; set; }
+        public string wysylka_nazwa { get; set; }
+        public Nullable<int> wysylka_cena { get; set; }
+    
+        public virtual Klienci Klienci { get; set; }
+        public virtual Statusy Statusy { get; set; }
+        public virtual Wysylki_platnosci Wysylki_platnosci { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Zamowienia_ksiazki> Zamowienia_ksiazki { get; set; }
     }
 }

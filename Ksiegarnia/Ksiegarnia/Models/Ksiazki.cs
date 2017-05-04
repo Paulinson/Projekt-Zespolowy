@@ -14,23 +14,30 @@ namespace Ksiegarnia.Models
     
     public partial class Ksiazki
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Ksiazki()
         {
-            this.Autorzy1 = new HashSet<Autorzy>();
-            this.AutorzyToKsiazki = new HashSet<AutorzyToKsiazki>();
+            this.AutorzyKsiazki = new HashSet<AutorzyKsiazki>();
+            this.Egzemplarze = new HashSet<Egzemplarze>();
+            this.Zamowienia_ksiazki = new HashSet<Zamowienia_ksiazki>();
         }
     
         public int id_ksiazka { get; set; }
-        public string nazwa { get; set; }
-        public int id_autor { get; set; }
-        public string isbn { get; set; }
-        public int cena { get; set; }
-        public int id_dzial { get; set; }
-        public string zdjecie { get; set; }
+        public Nullable<int> id_wydawnictwa { get; set; }
+        public Nullable<int> id_kategoria { get; set; }
+        public string tytul { get; set; }
+        public string foto { get; set; }
+        public double cena_netto_aktualna { get; set; }
+        public double cena_brutto_aktualna { get; set; }
+        public double proc_vat_aktualny { get; set; }
     
-        public virtual Autorzy Autorzy { get; set; }
-        public virtual ICollection<Autorzy> Autorzy1 { get; set; }
-        public virtual Dzialy Dzialy { get; set; }
-        public virtual ICollection<AutorzyToKsiazki> AutorzyToKsiazki { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AutorzyKsiazki> AutorzyKsiazki { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Egzemplarze> Egzemplarze { get; set; }
+        public virtual Kategoria Kategoria { get; set; }
+        public virtual Wydawnictwa Wydawnictwa { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Zamowienia_ksiazki> Zamowienia_ksiazki { get; set; }
     }
 }

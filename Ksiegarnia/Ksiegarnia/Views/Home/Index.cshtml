@@ -1,4 +1,5 @@
 ﻿@{
+    @model IEnumerable<Ksiegarnia.Models.Egzemplarze>
     ViewBag.Title = "Home Page";
 }
 
@@ -9,6 +10,7 @@
     <title>Styles Conference</title>
     <link rel="stylesheet" href="assets/stylesheets/main.css">
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:100,300,400">
+    @*<link rel="stylesheet" href="~/Content/bootstrap.css" />*@
 </head>
 <body>
     <!-- Header -->
@@ -16,7 +18,7 @@
         <h1 class="logo">
             <a href="index.html">Elektroniczna <br> Księgarnia</a>
         </h1>
-        <h3 class="tagline">@Session["imie"] @Session["nazwisko"] @DateTime.Now.DayOfWeek @DateTime.Now.Month @DateTime.Now.Year</h3>
+        @if(Session["imie"] != null){ <h3 class="tagline">Witaj @Session["imie"]!</h3>}
       <!--  <nav class="nav primary-nav">
             <ul>
                 <li><a href="">Dramat</a></li>
@@ -35,16 +37,12 @@
     <!-- Hero -->
     <section class="hero container">
         <h2>Wyszukiwanie książki</h2>
-        <p>W tym miejscu możesz wpisać tytuł lub autora książki która się interesuje.</p>
+        <p>W tym miejscu możesz wpisać tytuł lub autora książki która Cię interesuje.</p>
         <form class="form-signin">
-            <input type="text" class="form-control" placeholder="Wpisz książkę" required autofocus>
+            <input type="text" class="form-control" placeholder="Książka lub autor" required autofocus>
         </form>
-            <a class="btn btn-alt" href="register.html">Wyszukaj</a>
+        <a class="btn btn-alt" @Html.ActionLink("Wyszukaj","Koszyk", "Home")</a>
 </section>
-
-  
-  
-
 
 <div class="row">
     <div class="col-md-4">
@@ -52,13 +50,13 @@
         <p>
             TUTAJ powstanie elektroniczna ksiągarnia
         </p>
-        <img src="http://learn.shayhowe.com/practice/adding-media/assets/images/home/venue.jpg" width="280" height="200" alt="Conference Attendees">
+        <img src="~/Content/Images/piecdziesiat_twarzy_greya.jpg" width="200" height="280" alt="Conference Attendees">
         <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Więcej info  &raquo;</a></p>
     </div>
     <div class="col-md-4">
         <h2>Ksiazka</h2>
         <p>TUTAJ powstanie elektroniczna ksiągarnia</p>
-        <img src="http://learn.shayhowe.com/practice/adding-media/assets/images/home/venue.jpg" width="280" height="200" alt="Conference Attendees">
+        <img src="~/Content/Images/harry_potter_kamien.jpg" width="200" height="280" alt="Conference Attendees">
         <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Więcej info  &raquo;</a></p>
     </div>
     <div class="col-md-4">
@@ -68,4 +66,5 @@
         <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Więcej info  &raquo;</a></p>
     </div>
 </div>
+
 

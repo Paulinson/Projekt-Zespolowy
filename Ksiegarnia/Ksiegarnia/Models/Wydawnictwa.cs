@@ -12,16 +12,19 @@ namespace Ksiegarnia.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Dzialy
+    public partial class Wydawnictwa
     {
-        public Dzialy()
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Wydawnictwa()
         {
             this.Ksiazki = new HashSet<Ksiazki>();
         }
     
-        public int id_dzial { get; set; }
-        public string nazwa_dzialu { get; set; }
+        public int id_wydawnictwa { get; set; }
+        public string nazwa_wydawnictwa { get; set; }
+        public string opis { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Ksiazki> Ksiazki { get; set; }
     }
 }

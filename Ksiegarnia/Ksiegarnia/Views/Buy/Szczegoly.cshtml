@@ -1,0 +1,54 @@
+﻿@model Ksiegarnia.Models.Egzemplarze
+
+@{
+    ViewBag.Title = "Szczegoly";
+}
+
+<h2>Szczegoly</h2>
+
+<div>
+    <h4>Egzemplarze</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.kod_ean)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.kod_ean)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.isbn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.isbn)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.stan)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.stan)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model=>model.Ksiazki.cena_brutto_aktualna)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model=>model.Ksiazki.cena_brutto_aktualna) zł
+        </dd>
+        
+        <dd>
+            <img src="~/Content/Images/@Html.DisplayFor(model=>model.Ksiazki.foto)" width="200" height="280" alt="Conference Attendees">
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

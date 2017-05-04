@@ -12,12 +12,11 @@ namespace Ksiegarnia.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class AutorzyToKsiazki
+    public partial class AutorzyKsiazki
     {
+        public int id_autKsiazki { get; set; }
+        public Nullable<int> id_autor { get; set; }
         public Nullable<int> id_ksiazka { get; set; }
-        public Nullable<int> id_autora { get; set; }
-        public string udzial { get; set; }
-        public int id_aut { get; set; }
     
         public virtual Autorzy Autorzy { get; set; }
         public virtual Ksiazki Ksiazki { get; set; }
