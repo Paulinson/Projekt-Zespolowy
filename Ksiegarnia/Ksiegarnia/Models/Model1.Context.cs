@@ -32,7 +32,7 @@ namespace Ksiegarnia.Models
         public virtual DbSet<Klienci> Klienci { get; set; }
         public virtual DbSet<Ksiazki> Ksiazki { get; set; }
         public virtual DbSet<Statusy> Statusy { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+      
         public virtual DbSet<Wydawnictwa> Wydawnictwa { get; set; }
         public virtual DbSet<Wysylki_platnosci> Wysylki_platnosci { get; set; }
         public virtual DbSet<Zamowienia> Zamowienia { get; set; }
