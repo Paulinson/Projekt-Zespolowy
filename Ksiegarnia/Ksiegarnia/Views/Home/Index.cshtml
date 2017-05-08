@@ -1,5 +1,5 @@
 ﻿@{
-    @model IEnumerable<Ksiegarnia.Models.Egzemplarze>
+    @model IEnumerable<Ksiegarnia.Models.Ksiazki>
     ViewBag.Title = "Home Page";
 }
 
@@ -45,26 +45,15 @@
 </section>
 
 <div class="row">
+    @foreach(var item in Model)
+    { 
     <div class="col-md-4">
-        <h2>ksiazka</h2>
-        <p>
-            TUTAJ powstanie elektroniczna ksiągarnia
-        </p>
-        <img src="~/Content/Images/piecdziesiat_twarzy_greya.jpg" width="200" height="280" alt="Conference Attendees">
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Więcej info  &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Ksiazka</h2>
-        <p>TUTAJ powstanie elektroniczna ksiągarnia</p>
-        <img src="~/Content/Images/harry_potter_kamien.jpg" width="200" height="280" alt="Conference Attendees">
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Więcej info  &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Ksiazka</h2>
-        <p>TUTAJ powstanie elektroniczna ksiągarnia</p>
-        <img src="http://learn.shayhowe.com/practice/adding-media/assets/images/home/venue.jpg" width="280" height="200" alt="Conference Attendees">
+        <h2>@Html.DisplayFor(modelItem=>item.tytul)</h2>
+        <p>Bestseller</p>
+        <img src="~/Content/Images/@item.foto" width="280" height="200" alt="Conference Attendees">
         <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Więcej info  &raquo;</a></p>
     </div>
+    }
 </div>
 
 
