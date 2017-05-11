@@ -11,7 +11,8 @@ namespace Ksiegarnia.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Klienci
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,18 +20,33 @@ namespace Ksiegarnia.Models
         {
             this.Zamowienia = new HashSet<Zamowienia>();
         }
-    
+        [Key]
+        [Display(Name = "Imiê")]
         public int id_klient { get; set; }
+        
+        [Display(Name = "Ulica")]
         public string ulica { get; set; }
+        [Display(Name = "Nr mieszkania")]
         public Nullable<int> nr_mieszkania { get; set; }
+        [Display(Name = "Nr domu")]
         public int nr_domu { get; set; }
+        [Display(Name = "Województwo")]
         public string wojewodztwo { get; set; }
+        [Display(Name = "Miasto")]
         public string miasto { get; set; }
+        [Display(Name = "Kod pocztowy")]
         public string kod_pocztowy { get; set; }
+        [Display(Name = "E-mail")]
         public string email { get; set; }
+        [Display(Name = "Has³o")]
+        [DataType(DataType.Password)]
         public string haslo { get; set; }
+        [Display(Name ="Imiê")]
+
         public string imie { get; set; }
+        [Display(Name = "Nazwisko")]
         public string nazwisko { get; set; }
+       
         public System.DateTime data_urodzenia { get; set; }
         public Nullable<int> aktywny { get; set; }
     
