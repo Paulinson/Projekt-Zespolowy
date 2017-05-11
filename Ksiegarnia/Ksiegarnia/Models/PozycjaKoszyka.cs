@@ -7,7 +7,7 @@ namespace Ksiegarnia.Models
 {
     public class PozycjaKoszyka
     {
-        public Ksiazki ksiazka { get; set; }
+        public AutorzyKsiazki ksiazka { get; set; }
         public int ilosc { get; set; }
         public decimal wartosc { get; set; }
     }

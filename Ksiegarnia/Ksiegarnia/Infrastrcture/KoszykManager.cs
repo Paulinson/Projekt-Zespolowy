@@ -41,15 +41,14 @@ namespace Ksiegarnia.Infrastrcture
                 pozycjaKoszyka.ilosc++;
             else
             {
-                var ksiazkaDoDodania = db.Ksiazki.Where(k => k.id_ksiazka == ksiazkaId).SingleOrDefault();
-
+                var ksiazkaDoDodania = db.AutorzyKsiazki.Where(k => k.id_ksiazka == ksiazkaId).SingleOrDefault();
                 if (ksiazkaDoDodania != null)
                 {
                     var nowaPozycjaKoszyka = new PozycjaKoszyka()
                     {
                         ksiazka = ksiazkaDoDodania,
                         ilosc = 1,
-                        wartosc = (decimal)ksiazkaDoDodania.cena_netto_aktualna
+                        wartosc = (decimal)ksiazkaDoDodania.Ksiazki.cena_brutto_aktualna
                     };
 
                     koszyk.Add(nowaPozycjaKoszyka);
@@ -107,14 +106,14 @@ namespace Ksiegarnia.Infrastrcture
                 {
                     id_ksiazki = item.ksiazka.id_ksiazka,
                     ilosc_ksiazek = item.ilosc,
-                    cena_brutto_zakupu = item.ksiazka.cena_brutto_aktualna,
-                    cena_netto_zakupu = item.ksiazka.cena_netto_aktualna,
-                    proc_vat_zakupu = item.ksiazka.proc_vat_aktualny,
-                    tytul = item.ksiazka.tytul,
+                    cena_brutto_zakupu = item.ksiazka.Ksiazki.cena_brutto_aktualna,
+                    cena_netto_zakupu = item.ksiazka.Ksiazki.cena_netto_aktualna,
+                    proc_vat_zakupu = item.ksiazka.Ksiazki.proc_vat_aktualny,
+                    tytul = item.ksiazka.Ksiazki.tytul,
                     id_zamowienia = noweZamowienie.id_zamowienia
                 };
 
-                wartoscKoszyka += (decimal)(item.ilosc * item.ksiazka.cena_netto_aktualna);
+                wartoscKoszyka += (decimal)(item.ilosc * item.ksiazka.Ksiazki.cena_netto_aktualna);
                 noweZamowienie.Zamowienia_ksiazki.Add(nowaPozycjaZamowienia);
             }
             noweZamowienie.suma = (double)wartoscKoszyka;
@@ -126,6 +125,14 @@ namespace Ksiegarnia.Infrastrcture
         public void pustyKoszyk()
         {
             session.Set<List<PozycjaKoszyka>>(Consts.KoszykSessionKlucz, null);
+        }
+
+        public int pobierzIloscPozycjiKoszyka()
+        {
+            var koszyk = pobierzKoszyk();
+            int ilosc = koszyk.Sum(k => k.ilosc);
+
+            return ilosc;
         }
     }
 }

@@ -332,11 +332,11 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Buy\getKsiazkiByKategoria.cshtml" />
     <Content Include="Views\Buy\Szczegoly.cshtml" />
+    <Content Include="Views\Koszyk\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Images\" />
-    <Folder Include="Views\Koszyk\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

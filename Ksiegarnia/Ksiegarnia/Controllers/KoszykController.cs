@@ -5,8 +5,11 @@ using NLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace Ksiegarnia.Controllers
 {
@@ -27,7 +30,7 @@ namespace Ksiegarnia.Controllers
         public ActionResult Index()
         {
             var name = User.Identity.Name;
-            logger.Info("Stron koszyk | " + name);
+            logger.Info("Strona koszyk | " + name);
             var pozycjeKoszyka_ = koszykManger.pobierzKoszyk();
             var cenaCalkowita_ = koszykManger.pobierzWartoscKoszyka();
 
@@ -46,10 +49,55 @@ namespace Ksiegarnia.Controllers
             return RedirectToAction("Index");
         }
 
+        public int pobierzIloscElementowKoszyka()
+        {
+            return koszykManger.pobierzIloscPozycjiKoszyka();
+        }
+
         public ActionResult usunZKoszyka(int id)
         {
+            int iloscPozycji = koszykManger.usunZKoszyka(id);
+            int iloscPozycjiKoszyka = koszykManger.pobierzIloscPozycjiKoszyka();
+            decimal wartoscKoszyka = koszykManger.pobierzWartoscKoszyka();
 
-            return View(); 
+            var wynik = new UsunZKoszykaViewModel
+            {
+                idPozycjiUsuwanej = id,
+                iloscPozycjiUsuwanej = iloscPozycji,
+                koszykCenaCalkowita = wartoscKoszyka,
+                koszykIloscPozycji = iloscPozycjiKoszyka
+            };
+
+            return Json(wynik);
+        }
+
+        //public async Task<ActionResult> zaplac()
+        //{
+        //    var name = User.Identity.Name;
+        //    logger.Info("Strona koszyk | Zaplać | " + name);
+
+        //    if (Request.IsAuthenticated)
+        //    {
+        //        var user = await userManager.FindByIdAsync(User.Identity.GetUserId());
+
+        //        var zamowienie = new Zamowienia
+        //        {
+                    
+        //        }
+        //    }
+        //}
+
+        public ApplicationUserManager _userManager;
+        public ApplicationUserManager userManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
         }
     }
 }

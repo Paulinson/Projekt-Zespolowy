@@ -11,6 +11,7 @@ namespace Ksiegarnia.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class Ksiazki
     {
@@ -27,7 +28,9 @@ namespace Ksiegarnia.Models
         public Nullable<int> id_kategoria { get; set; }
         public string tytul { get; set; }
         public string foto { get; set; }
+         [DisplayFormat(DataFormatString = "{0:C}")]
         public double cena_netto_aktualna { get; set; }
+         [DisplayFormat(DataFormatString = "{0:C}")]
         public double cena_brutto_aktualna { get; set; }
         public double proc_vat_aktualny { get; set; }
     

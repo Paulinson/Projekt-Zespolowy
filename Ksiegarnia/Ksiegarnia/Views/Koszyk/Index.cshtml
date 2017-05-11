@@ -1,0 +1,27 @@
+﻿@model Ksiegarnia.ViewModels.KoszykViewModel
+@using Ksiegarnia.Infrastrcture
+@{
+    ViewBag.Title = "Koszyk";
+}
+
+<table>
+    @foreach (var item in Model.pozycjeKoszyka)
+    {
+        <tr>
+            <td id="koszyk-wiersz-@item.ksiazka.id_ksiazka">
+                <a href="@Url.Action("Szczegoly", "Buy", new { id = item.ksiazka.id_ksiazka})">
+                    <img src="~/Content/Images/@item.ksiazka.Ksiazki.foto" width="140" height="200">
+                </a>
+            </td>
+            <td>
+                <a href="@Url.Action("Szczegoly", "Buy", new { id = item.ksiazka.id_ksiazka})"><i>@item.ksiazka.Ksiazki.tytul</i> @item.ksiazka.Autorzy.imie @item.ksiazka.Autorzy.nazwisko</a>
+            </td>
+            <td>
+                Ilość: <span id="koszyk-ilosc-pozycji-@item.ksiazka.id_ksiazka">@item.ilosc</span>
+            </td>
+            <td>
+            </td>
+        </tr>
+    }
+</table>
+

@@ -1,45 +1,18 @@
-﻿@model IEnumerable<Ksiegarnia.Models.Ksiazki>
+﻿@model IEnumerable<Ksiegarnia.Models.AutorzyKsiazki>
 
 @{
     ViewBag.Title = "getKsiazkiByKategoria";
 }
 
-<h2>getKsiazkiByKategoria</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.tytul)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.foto)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cena_brutto_aktualna)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.tytul)
-        </td>
-        <td>
-            <img src="~/Content/Images/@item.foto" width="100" height="180" alt="Conference Attendees">
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cena_brutto_aktualna)
-        </td>
-        <td>
-            @Html.ActionLink("Zobacz więcej", "Szczegoly", "Buy", new{id=item.id_ksiazka}, null)
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
-}
-
-</table>
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4">
+            <h2>@Html.DisplayFor(modelItem => item.Ksiazki.tytul)</h2>
+            <p>@Html.DisplayFor(modelItem=>item.Autorzy.imie) @Html.DisplayFor(modelItem => item.Autorzy.nazwisko)</p>
+            <img src="~/Content/Images/@item.Ksiazki.foto" width="140" height="200" alt="Conference Attendees">
+            <p style="color:#FF0000; padding-left:20px">@Html.DisplayFor(modelItem =>item.Ksiazki.cena_brutto_aktualna)</p>
+            @Html.ActionLink("Zobacz więcej", "Szczegoly", "Buy", new { id = item.id_ksiazka }, new { @class = "btn btn-alt" })
+        </div>
+    }
+</div>

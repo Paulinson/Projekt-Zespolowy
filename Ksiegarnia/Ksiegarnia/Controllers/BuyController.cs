@@ -24,7 +24,8 @@ namespace Ksiegarnia.Controllers
 
         public ActionResult getKsiazkiByKategoria(int id)
         {
-            var details = db.Ksiazki.Where(p => p.id_kategoria == id);
+            //var details = db.Ksiazki.Where(p => p.id_kategoria == id);
+            var details = db.AutorzyKsiazki.Where(p => p.Ksiazki.id_kategoria == id);
             return View(details.ToList());
         }
     }

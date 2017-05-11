@@ -5,51 +5,26 @@
 }
 @Styles.Render("~/Content/css")
 
-<h2>Szczegoly</h2>
-
 <div>
-    <h4>Egzemplarze</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.kod_ean)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.kod_ean)
-        </dd>
+    <div class="row">
+        <h3 style="margin-left:40px">@Html.DisplayFor(model => model.Ksiazki.tytul)</h3>
+        <div>
+            <p style="float:left; margin-left:30px;"><img src="~/Content/Images/@Html.DisplayFor(model=>model.Ksiazki.foto)" width="200" height="280" alt="Foto"></p>
+        </div>
+        <div>
+            <h2><p style="display:inline; margin-left:100px; color:#FF0000"><b>@Html.DisplayNameFor(model=>model.Ksiazki.cena_brutto_aktualna): @Html.DisplayFor(model=>model.Ksiazki.cena_brutto_aktualna) zł</b></p><br /></h2>
+            <b><p style="display:inline; margin-left:100px">@Html.DisplayNameFor(model => model.Ksiazki.Kategoria.nazwa): @Html.DisplayFor(model => model.Ksiazki.Kategoria.nazwa)</p></b><br />
+            <b><p style="display:inline; margin-left:100px">@Html.DisplayNameFor(model => model.isbn): @Html.DisplayFor(model => model.isbn)</p></b><br />
+            <b><p style="display:inline; margin-left:100px">@Html.DisplayNameFor(model => model.kod_ean): @Html.DisplayFor(model => model.kod_ean)</p></b><br />
+            <b><p style="display:inline; margin-left:100px">@Html.DisplayNameFor(model => model.stan): @if(Model.stan> 0) {<u style="color:#00ff21">DOSTĘPNA</u>} @if(Model.stan==0){<u style="color:#ff0000">BRAK</u>}</p></b><br />
+            <a style="margin-left:100px" class="btn btn-alt" @Html.ActionLink("Kup teraz", "Koszyk", "Home")</a><br />
+        </div>
+    </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.isbn)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.isbn)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.stan)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.stan)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model=>model.Ksiazki.cena_brutto_aktualna)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model=>model.Ksiazki.cena_brutto_aktualna) zł
-        </dd>
-        
-        <dd>
-            <img src="~/Content/Images/@Html.DisplayFor(model=>model.Ksiazki.foto)" width="200" height="280" alt="Conference Attendees">
-        </dd>
-
-    </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
