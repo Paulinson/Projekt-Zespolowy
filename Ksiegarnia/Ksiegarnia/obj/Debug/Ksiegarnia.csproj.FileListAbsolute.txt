@@ -109,4 +109,6 @@ C:\Users\Marcin\Desktop\PZ\Projekt-Zespolowy\Ksiegarnia\Ksiegarnia\obj\Debug\Ksi
 C:\Users\Marcin\Desktop\PZ\Projekt-Zespolowy\Ksiegarnia\Ksiegarnia\obj\Debug\Ksiegarnia.pdb
 C:\Users\Marcin\Desktop\PZ\Projekt-Zespolowy\Ksiegarnia\Ksiegarnia\obj\Debug\Ksiegarnia.Properties.Resources.resources
 C:\Users\Marcin\Desktop\PZ\Projekt-Zespolowy\Ksiegarnia\Ksiegarnia\obj\Debug\Ksiegarnia.csproj.GenerateResource.Cache
+C:\Users\Marcin\Desktop\PZ\Projekt-Zespolowy\Ksiegarnia\Ksiegarnia\bin\NLog.dll
+C:\Users\Marcin\Desktop\PZ\Projekt-Zespolowy\Ksiegarnia\Ksiegarnia\bin\NLog.xml
 C:\Users\Marcin\Desktop\PZ\Projekt-Zespolowy\Ksiegarnia\Ksiegarnia\obj\Debug\Ksiegarnia.csprojResolveAssemblyReference.cache
