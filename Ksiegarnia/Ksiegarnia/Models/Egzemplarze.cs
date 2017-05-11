@@ -11,13 +11,19 @@ namespace Ksiegarnia.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Egzemplarze
     {
+        [Key]
         public int id_egzemplarz { get; set; }
         public Nullable<int> id_ksiazka { get; set; }
+
+        [Display(Name = "Kod ean")]
         public string kod_ean { get; set; }
+        [Display(Name = "Isbn")]
         public string isbn { get; set; }
+        [Display(Name = "Iloœæ egzemplarzy")]
         public Nullable<int> stan { get; set; }
     
         public virtual Ksiazki Ksiazki { get; set; }

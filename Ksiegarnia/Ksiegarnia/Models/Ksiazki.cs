@@ -11,9 +11,11 @@ namespace Ksiegarnia.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Ksiazki
     {
+        
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Ksiazki()
         {
@@ -21,14 +23,20 @@ namespace Ksiegarnia.Models
             this.Egzemplarze = new HashSet<Egzemplarze>();
             this.Zamowienia_ksiazki = new HashSet<Zamowienia_ksiazki>();
         }
-    
+        [Key]
+
         public int id_ksiazka { get; set; }
         public Nullable<int> id_wydawnictwa { get; set; }
         public Nullable<int> id_kategoria { get; set; }
+        [Display(Name = "Tytu³")]
         public string tytul { get; set; }
+        [Display(Name = "Ok³adka")]
         public string foto { get; set; }
         public double cena_netto_aktualna { get; set; }
+        [Display(Name = "Cena")]
         public double cena_brutto_aktualna { get; set; }
+
+
         public double proc_vat_aktualny { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
